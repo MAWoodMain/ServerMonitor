@@ -3,6 +3,7 @@ import pygame
 import os
 import pygameui as ui
 import logging
+import commands
 from sys import exit
 
 log_format = '%(asctime)-6s: %(name)s - %(levelname)s - %(message)s'
@@ -28,6 +29,8 @@ ba2 = 'Storage'
 class Home(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
+
+        logger.info(commands.getstatusoutput('pwd'))
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
