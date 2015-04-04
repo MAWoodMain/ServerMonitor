@@ -49,7 +49,7 @@ class Load(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 170, 90), 'Back')
+        self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 280, 200), 'Back')
         self.ba1_button.on_clicked.connect(self.button_handler)
         self.add_child(self.ba1_button)
 
