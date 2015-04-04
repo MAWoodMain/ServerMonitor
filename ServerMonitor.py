@@ -41,10 +41,31 @@ class Home(ui.Scene):
         logger.info(btn.text)
 
         if btn.text == ba1:
-            exit()
+            ui.scene.push(Load())
         elif btn.text == ba2:
-            logger.info('You clicked storage')
+            ui.scene.push(Storage())
 
+class Load(ui.Scene):
+    def __init__(self):
+        ui.Scene.__init__(self)
+
+        self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 170, 90), 'Back')
+        self.ba1_button.on_clicked.connect(self.button_handler)
+        self.add_child(self.ba1_button)
+
+
+    def button_handler(self, btn, mbtn):
+        logger.info(btn.text)
+        ui.scene.pop()
+
+class Storage(ui.Scene):
+    def __init__(self):
+        ui.Scene.__init__(self)
+
+
+    def button_handler(self, btn, mbtn):
+        logger.info(btn.text)
+        ui.scene.pop()
 
 ui.init('Raspberry Pi UI', (320, 240))
 pygame.mouse.set_visible(False)
