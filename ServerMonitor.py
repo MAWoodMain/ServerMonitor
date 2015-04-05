@@ -30,7 +30,11 @@ class Home(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        logger.info(commands.getstatusoutput('pwd'))
+        output = commands.getstatusoutput('git pull')
+        logger.info(output)
+        if output != 'Already up-to-date.':
+            commands.getstatusoutput('(sleep 5; sudo python ServerMonitor.py)&')
+            exit()
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
