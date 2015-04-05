@@ -30,7 +30,7 @@ class Home(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        output = commands.getstatusoutput('git pull')
+        output = commands.getstatusoutput('git pull&')
         logger.info(output)
         if output != 'Already up-to-date.':
             commands.getstatusoutput('(sleep 5\; sudo python ServerMonitor.py)&')
