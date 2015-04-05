@@ -73,7 +73,7 @@ class DataReader():
             self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_TOTAL_COMMAND).read()) *MEM_TOTAL_COEFFICIENT
             self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_FREE_COMMAND).read()) *MEM_FREE_COEFFICIENT
 
-            logger.info("CPU: " + str(self.cpu_load) + "% MEM: " + str(((self.mem_total - self.mem_free)/self.mem_total)*100) + "%")
+            logger.info("CPU: " + str(self.cpu_load*100) + "% MEM: " + str(((self.mem_total - self.mem_free)/self.mem_total)*100) + "%")
         else:
             self.cpu_load = 0.0
             self.mem_total = 0
