@@ -38,8 +38,8 @@ class Home(ui.Scene):
             cpu_load = float(os.popen("cat /proc/loadavg | cut -c 1-4").read()) /8
             mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'").read())
 
-            logger.info("CPU load: " & cpu_load)
-            logger.info("MEM total: " & mem_total)
+            logger.info("CPU load: " & str(cpu_load))
+            logger.info("MEM total: " & str(mem_total))
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
