@@ -113,7 +113,6 @@ class Load(ui.Scene):
 
 
         self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 100, 280, 40))
-        self.cpu_view.on_clicked.connect(self.button_handler)
         self.add_child(self.cpu_view)
 
         self.mem_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
