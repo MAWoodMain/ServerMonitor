@@ -31,9 +31,9 @@ class Home(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        #proc = subprocess.Popen('ping -c 1 192.168.1.176 | grep packets transmitted |  cut -c 24', stdout=subprocess.PIPE)
+        #proc = subprocess.Popen('ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24', stdout=subprocess.PIPE)
         #tmp = proc.stdout.read()
-        tmp = os.popen("ping -c 1 192.168.1.176 | grep packets transmitted |  cut -c 24").read()
+        tmp = os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read()
         logger.info(tmp)
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
