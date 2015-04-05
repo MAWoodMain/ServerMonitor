@@ -10,10 +10,10 @@ ON_COMMAND = "ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24"
 CPU_LOAD_COMMAND = "cat /proc/loadavg | cut -c 1-4"
 CPU_LOAD_COEFFICIENT = 0.125
 
-MEM_TOTAL_COMMAND = "cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'"
+MEM_TOTAL_COMMAND = "grep MemTotal /proc/meminfo | awk '{print $2}'"
 MEM_TOTAL_COEFFICIENT = 1.0
 
-MEM_AVAIL_COMMAND = "cat /proc/meminfo | grep MemAvailable | cut -c 14-24 | sed 's/ //g'"
+MEM_FREE_COMMAND = "grep MemFree /proc/meminfo | awk '{print $2}'"
 MEM_FREE_COEFFICIENT = 1.0
 
 import pygame
@@ -53,7 +53,7 @@ class DataReader():
         self.on = False
         self.cpu_load = 0.0
         self.mem_total = 0
-        self.mem_avail = 0
+        self.mem_free = 0
 
     def terminate(self):
         self.terminated = True
@@ -63,7 +63,7 @@ class DataReader():
             # Read channel 0 in single-ended mode using the settings above
             self.update_info()
             self.scene.update_cpu(self.cpu_load)
-            self.scene.update_mem(self.mem_avail, self.mem_total)
+            self.scene.update_mem(self.mem_free, self.mem_total)
             time.sleep(UPDATE_DELAY)
 
     def update_info(self):
@@ -71,13 +71,13 @@ class DataReader():
         if self.on:
             self.cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + CPU_LOAD_COMMAND + "\"").read()) *CPU_LOAD_COEFFICIENT
             self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_TOTAL_COMMAND + "\"").read()) *MEM_TOTAL_COEFFICIENT
-            self.mem_avail = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_AVAIL_COMMAND + "\"").read()) *MEM_FREE_COEFFICIENT
+            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_FREE_COMMAND + "\"").read()) *MEM_FREE_COEFFICIENT
 
-            logger.info("CPU: " + str(self.cpu_load) + "% MEM: " + str((self.mem_avail/self.mem_total)*100) + "%")
+            logger.info("CPU: " + str(self.cpu_load) + "% MEM: " + str(((self.mem_total - self.mem_free)/self.mem_total)*100) + "%")
         else:
             self.cpu_load = 0.0
             self.mem_total = 0
-            self.mem_avail = 0
+            self.mem_free = 0
 
 class Home(ui.Scene):
     def __init__(self):
@@ -123,9 +123,9 @@ class Load(ui.Scene):
     def update_cpu(self, load):
         self.cpu_view.progress = load
 
-    def update_mem(self, avail, total):
+    def update_mem(self, free, total):
         if total != 0:
-            self.mem_view.progress = avail / total
+            self.mem_view.progress = (total - free) / total
         else:
             self.mem_view.progress = 0
 
