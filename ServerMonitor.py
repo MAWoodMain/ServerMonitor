@@ -10,7 +10,7 @@ ON_COMMAND = "ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24"
 CPU_LOAD_COMMAND = "cat /proc/loadavg | cut -c 1-4"
 CPU_LOAD_COEFFICIENT = 0.125
 
-MEM_TOTAL_COMMAND = "grep MemTotal /proc/meminfo | awk '{print $2}'"
+MEM_TOTAL_COMMAND = "\"grep MemTotal /proc/meminfo\" | awk '{print $2}'"
 MEM_TOTAL_COEFFICIENT = 1.0
 
 MEM_FREE_COMMAND = "grep MemFree /proc/meminfo | awk '{print $2}'"
@@ -69,9 +69,9 @@ class DataReader():
     def update_info(self):
         self.on = bool(os.popen(ON_COMMAND).read())
         if self.on:
-            self.cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + CPU_LOAD_COMMAND + "\"").read()) *CPU_LOAD_COEFFICIENT
-            self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_TOTAL_COMMAND + "\"").read()) *MEM_TOTAL_COEFFICIENT
-            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_FREE_COMMAND + "\"").read()) *MEM_FREE_COEFFICIENT
+            self.cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + CPU_LOAD_COMMAND).read()) *CPU_LOAD_COEFFICIENT
+            self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_TOTAL_COMMAND).read()) *MEM_TOTAL_COEFFICIENT
+            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_FREE_COMMAND).read()) *MEM_FREE_COEFFICIENT
 
             logger.info("CPU: " + str(self.cpu_load) + "% MEM: " + str(((self.mem_total - self.mem_free)/self.mem_total)*100) + "%")
         else:
