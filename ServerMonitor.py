@@ -34,7 +34,12 @@ class Home(ui.Scene):
         #proc = subprocess.Popen('ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24', stdout=subprocess.PIPE)
         #tmp = proc.stdout.read()
         tmp = os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read()
-        logger.info(tmp)
+        if tmp == 1:
+            cpu_load = float(os.popen("cat /proc/loadavg | cut -c 1-4").read()) /8
+            mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed s/ //g").read())
+
+            logger.info("CPU load: " & cpu_load)
+            logger.info("MEM total: " & mem_total)
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
