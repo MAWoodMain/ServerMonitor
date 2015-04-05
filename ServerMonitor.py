@@ -15,7 +15,7 @@ MEM_TOTAL_COEFFICIENT = 1.0
 
 MEM_FREE_COMMAND = " \"grep MemFree /proc/meminfo\" | awk '{print $2}'"
 MEM_BUFFERS_COMMAND = " \"grep Buffers /proc/meminfo\" | awk '{print $2}'"
-MEM_CACHED_COMMAND = " \"grep Cached /proc/meminfo\" | awk '{print $2}'"
+MEM_CACHED_COMMAND = " \"grep Cached /proc/meminfo\" | awk '{print $2}' | head -1"
 MEM_FREE_COEFFICIENT = 1.0
 
 import pygame
