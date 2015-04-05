@@ -41,11 +41,11 @@ class Home(ui.Scene):
 
     def button_handler(self, btn, mbtn):
         if btn.text == ba1:
-            load = Load()
-            datareader = DataReader(load)
+            load = Load.Load()
+            datareader = DataReader.DataReader(load)
             threading.Thread(target=datareader).start()
             ui.scene.push(load)
         elif btn.text == ba2:
-            ui.scene.push(Storage())
+            ui.scene.push(Storage.Storage())
         elif btn.text == ba3:
-            ui.scene.push(Action())
+            ui.scene.push(Action.Action())
