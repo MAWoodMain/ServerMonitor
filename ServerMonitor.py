@@ -3,6 +3,8 @@ __author__ = 'MAWood'
 HOST = "192.168.1.176"
 USERNAME = "mawood"
 
+UPDATE_DELAY = 1
+
 ON_COMMAND = "ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24"
 
 CPU_LOAD_COMMAND = "cat /proc/loadavg | cut -c 1-4"
@@ -65,7 +67,7 @@ class DataReader():
             self.update_info()
             self.scene.update_cpu(self.cpu_load)
             self.scene.update_mem(self.mem_free, self.mem_total)
-            time.sleep(2)
+            time.sleep(UPDATE_DELAY)
 
     def update_info(self):
         self.on = bool(os.popen(ON_COMMAND).read())
