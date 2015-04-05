@@ -3,6 +3,11 @@ __author__ = 'MAWood'
 HOST = "192.168.1.176"
 USERNAME = "mawood"
 
+CPU_LOAD_COMMAND = "cat /proc/loadavg | cut -c 1-4"
+CPU_LOAD_COEFFICIENT = 12.5
+MEM_TOTAL_COMMAND = "cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'"
+MEM_FREE_COMMAND = "cat /proc/meminfo | grep MemFree | cut -c 10-24 | sed s/ //g"
+
 import pygame
 import os
 import pygameui as ui
@@ -26,6 +31,9 @@ MARGIN = 20
 
 ba1 = 'Load'
 ba2 = 'Storage'
+cpu_load = 0.0
+mem_total = 0
+mom_free = 0
 
 # class Button():
 #    def __init__(text, x1, y1, x2, y2)
@@ -39,9 +47,8 @@ class Home(ui.Scene):
         #tmp = proc.stdout.read()
         tmp = int(os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read())
         if tmp == 1:
-            #logger.info(os.popen("ssh -v " + USERNAME + "@" + HOST + " 'cat /proc/loadavg | cut -c 1-4 | sed 's/ //g''").read())
-            cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " 'cat /proc/loadavg | cut -c 1-4'").read()) /0.08
-            mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'").read())
+            cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " " + CPU_LOAD_COMMAND).read()) *CPU_LOAD_COEFFICIENT
+            mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + " " + MEM_TOTAL_COMMAND).read())
 
             logger.info("CPU load: " + str(cpu_load))
             logger.info("MEM total: " + str(mem_total))
