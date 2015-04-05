@@ -110,7 +110,7 @@ class Load(ui.Scene):
         self.add_child(self.progress_view)
 
     def update_cpu(self, load):
-        self.cpu_view.progress(load)
+        self.cpu_view.progress = load
 
     def button_handler(self, btn, mbtn):
         logger.info(btn.text)
