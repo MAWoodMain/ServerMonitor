@@ -14,6 +14,7 @@ import Globals
 
 
 
+
 # Configure logging
 log_format = '%(asctime)-6s: %(name)s - %(levelname)s - %(message)s'
 console_handler = logging.StreamHandler()
@@ -40,6 +41,6 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-home = Home()
+home = Home.Home()
 ui.scene.push(home)
 ui.run()
