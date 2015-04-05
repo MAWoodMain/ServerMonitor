@@ -19,6 +19,9 @@ import os
 import time
 import pygameui as ui
 import logging
+import threading
+import signal
+import sys
 import subprocess
 import commands
 from sys import exit
@@ -107,7 +110,7 @@ class Load(ui.Scene):
         self.add_child(self.ba1_button)
 
         self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
-        self.add_child(self.progress_view)
+        self.add_child(self.cpu_view)
 
     def update_cpu(self, load):
         self.cpu_view.progress = load
@@ -127,5 +130,19 @@ class Storage(ui.Scene):
 
 ui.init('Raspberry Pi UI', (320, 240))
 pygame.mouse.set_visible(False)
-ui.scene.push(Home())
+
+home = Home()
+
+# Start the thread running the callable
+datareader = DataReader(home)
+threading.Thread(target=datareader).start()
+
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    datareader.terminate()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+ui.scene.push(home)
 ui.run()
