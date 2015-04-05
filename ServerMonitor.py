@@ -36,7 +36,7 @@ class Home(ui.Scene):
         tmp = int(os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read())
         if tmp == 1:
             cpu_load = float(os.popen("cat /proc/loadavg | cut -c 1-4").read()) /8
-            mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed s/ //g").read())
+            mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'").read())
 
             logger.info("CPU load: " & cpu_load)
             logger.info("MEM total: " & mem_total)
