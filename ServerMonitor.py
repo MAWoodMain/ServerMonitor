@@ -50,8 +50,8 @@ class Home(ui.Scene):
             cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " " + CPU_LOAD_COMMAND).read()) *CPU_LOAD_COEFFICIENT
             mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + " " + MEM_TOTAL_COMMAND).read())
 
-            logger.info("CPU load: " + str(cpu_load))
-            logger.info("MEM total: " + str(mem_total))
+            logger.info("CPU load: " + str(cpu_load) + "%")
+            logger.info("MEM total: " + str(mem_total) + "kB")
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
