@@ -111,7 +111,9 @@ class Load(ui.Scene):
         #self.ba1_button.on_clicked.connect(self.button_handler)
         #self.add_child(self.ba1_button)
 
+
         self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 100, 280, 40))
+        self.cpu_view.on_clicked.connect(self.button_handler)
         self.add_child(self.cpu_view)
 
         self.mem_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
@@ -128,6 +130,7 @@ class Load(ui.Scene):
 
     def button_handler(self, btn, mbtn):
         logger.info(btn.text)
+        datareader.terminate()
         ui.scene.pop()
 
 class Storage(ui.Scene):
@@ -142,6 +145,9 @@ class Storage(ui.Scene):
 ui.init('Raspberry Pi UI', (320, 240))
 pygame.mouse.set_visible(False)
 
+
+datareader = DataReader(Home())
+datareader.terminate()
 home = Home()
 
 # Start the thread running the callable
