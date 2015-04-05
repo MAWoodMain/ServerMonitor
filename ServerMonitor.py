@@ -42,6 +42,8 @@ MARGIN = 20
 
 ba1 = 'Load'
 ba2 = 'Storage'
+ba3 = 'Action'
+ba4 = ''
 
 # class Button():
 #    def __init__(text, x1, y1, x2, y2)
@@ -98,6 +100,14 @@ class Home(ui.Scene):
         self.ba2_button = ui.Button(ui.Rect(170, MARGIN, 130, 90), ba2)
         self.ba2_button.on_clicked.connect(self.button_handler)
         self.add_child(self.ba2_button)
+
+        self.ba3_button = ui.Button(ui.Rect(MARGIN, 130, 130, 90), ba3)
+        self.ba3_button.on_clicked.connect(self.button_handler)
+        self.add_child(self.ba3_button)
+
+        self.ba4_button = ui.Button(ui.Rect(170, 130, 130, 90), ba4)
+        self.ba4_button.on_clicked.connect(self.button_handler)
+        self.add_child(self.ba4_button)
 
     def button_handler(self, btn, mbtn):
         logger.info(btn.text)
