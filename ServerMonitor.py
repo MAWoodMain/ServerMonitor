@@ -39,7 +39,7 @@ class Home(ui.Scene):
         #tmp = proc.stdout.read()
         tmp = int(os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read())
         if tmp == 1:
-            logger.info(os.popen("ssh " + USERNAME + "@" + HOST + " 'cat /proc/loadavg | cut -c 1-4 | sed 's/ //g''").read())
+            logger.info(os.popen("ssh -v " + USERNAME + "@" + HOST + " 'cat /proc/loadavg | cut -c 1-4 | sed 's/ //g''").read())
             cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " 'cat /proc/loadavg | cut -c 1-4 | sed 's/ //g''").read()) /8
             mem_total = int(os.popen("cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'").read())
 
