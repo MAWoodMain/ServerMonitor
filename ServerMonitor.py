@@ -112,11 +112,20 @@ class Load(ui.Scene):
         #self.ba1_button.on_clicked.connect(self.button_handler)
         #self.add_child(self.ba1_button)
 
-        self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
+        self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 100, 280, 40))
         self.add_child(self.cpu_view)
+
+        self.mem_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
+        self.add_child(self.mem_view)
 
     def update_cpu(self, load):
         self.cpu_view.progress = load
+
+    def update_mem(self, free, total):
+        if total != 0:
+            self.mem_view.progress = (total - free) / total
+        else:
+            self.mem_view.progress = 0
 
     def button_handler(self, btn, mbtn):
         logger.info(btn.text)
