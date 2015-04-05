@@ -1,8 +1,8 @@
 __author__ = 'MAWood'
 import threading
+import os
 
 import pygameui as ui
-import os.popen
 import Screens.Load as Load
 import DataReader
 import Screens.Storage as Storage
