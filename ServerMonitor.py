@@ -24,9 +24,6 @@ import logging
 import threading
 import signal
 import sys
-import subprocess
-import commands
-from sys import exit
 
 log_format = '%(asctime)-6s: %(name)s - %(levelname)s - %(message)s'
 console_handler = logging.StreamHandler()
