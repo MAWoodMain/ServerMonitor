@@ -97,7 +97,10 @@ class Home(ui.Scene):
         logger.info(btn.text)
 
         if btn.text == ba1:
-            ui.scene.push(Load())
+            load = Load()
+            datareader = DataReader(load)
+            threading.Thread(target=datareader).start()
+            ui.scene.push(load)
         elif btn.text == ba2:
             ui.scene.push(Storage())
 
@@ -134,12 +137,9 @@ pygame.mouse.set_visible(False)
 home = Home()
 
 # Start the thread running the callable
-datareader = DataReader(home)
-threading.Thread(target=datareader).start()
 
 def signal_handler(signal, frame):
     print('You pressed Ctrl+C!')
-    datareader.terminate()
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
