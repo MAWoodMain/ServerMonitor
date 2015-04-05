@@ -14,6 +14,8 @@ MEM_TOTAL_COMMAND = " \"grep MemTotal /proc/meminfo\" | awk '{print $2}'"
 MEM_TOTAL_COEFFICIENT = 1.0
 
 MEM_FREE_COMMAND = " \"grep MemFree /proc/meminfo\" | awk '{print $2}'"
+MEM_BUFFERS_COMMAND = " \"grep Buffers /proc/meminfo\" | awk '{print $2}'"
+MEM_CACHED_COMMAND = " \"grep Cached /proc/meminfo\" | awk '{print $2}'"
 MEM_FREE_COEFFICIENT = 1.0
 
 import pygame
@@ -71,7 +73,10 @@ class DataReader():
         if self.on:
             self.cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + CPU_LOAD_COMMAND).read()) *CPU_LOAD_COEFFICIENT
             self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_TOTAL_COMMAND).read()) *MEM_TOTAL_COEFFICIENT
-            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_FREE_COMMAND).read()) *MEM_FREE_COEFFICIENT
+            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_FREE_COMMAND).read())
+            self.mem_free += int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_BUFFERS_COMMAND).read())
+            self.mem_free += int(os.popen("ssh " + USERNAME + "@" + HOST + MEM_CACHED_COMMAND).read())
+            self.mem_free *= MEM_FREE_COEFFICIENT
 
             logger.info("CPU: " + str(self.cpu_load*100) + "% MEM: " + str(100-(self.mem_free/self.mem_total)*100) + "%")
         else:
