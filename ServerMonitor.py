@@ -13,7 +13,7 @@ CPU_LOAD_COEFFICIENT = 0.125
 MEM_TOTAL_COMMAND = "cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'"
 MEM_TOTAL_COEFFICIENT = 1.0
 
-MEM_AVAIL_COMMAND = "cat /proc/meminfo | grep MemAvailable | cut -c 10-24 | sed 's/ //g'"
+MEM_AVAIL_COMMAND = "cat /proc/meminfo | grep MemAvailable | cut -c 14-24 | sed 's/ //g'"
 MEM_FREE_COEFFICIENT = 1.0
 
 import pygame
