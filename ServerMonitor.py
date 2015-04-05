@@ -3,6 +3,7 @@ import pygame
 import os
 import pygameui as ui
 import logging
+import subprocess
 import commands
 from sys import exit
 
@@ -30,11 +31,9 @@ class Home(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        #output = commands.getoutput('git pull&')
-        #logger.info(output)
-        #if output != 'Already up-to-date.':
-        #    commands.getoutput('(sleep 5\; sudo python ServerMonitor.py)&')
-        #    exit()
+        proc = subprocess.Popen('ping -c 1 192.168.1.176 | grep packets transmitted |  cut -c 24', stdout=subprocess.PIPE)
+        tmp = proc.stdout.read()
+        logger.info(tmp)
 
         self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
