@@ -13,7 +13,7 @@ CPU_LOAD_COEFFICIENT = 0.125
 MEM_TOTAL_COMMAND = "cat /proc/meminfo | grep MemTotal | cut -c 10-24 | sed 's/ //g'"
 MEM_TOTAL_COEFFICIENT = 1.0
 
-MEM_FREE_COMMAND = "cat /proc/meminfo | grep MemFree | cut -c 10-24 | sed 's/ //g'"
+MEM_AVAIL_COMMAND = "cat /proc/meminfo | grep MemAvailable | cut -c 10-24 | sed 's/ //g'"
 MEM_FREE_COEFFICIENT = 1.0
 
 import pygame
@@ -53,7 +53,7 @@ class DataReader():
         self.on = False
         self.cpu_load = 0.0
         self.mem_total = 0
-        self.mem_free = 0
+        self.mem_avail = 0
 
     def terminate(self):
         self.terminated = True
@@ -63,7 +63,7 @@ class DataReader():
             # Read channel 0 in single-ended mode using the settings above
             self.update_info()
             self.scene.update_cpu(self.cpu_load)
-            self.scene.update_mem(self.mem_free, self.mem_total)
+            self.scene.update_mem(self.mem_avail, self.mem_total)
             time.sleep(UPDATE_DELAY)
 
     def update_info(self):
@@ -71,11 +71,11 @@ class DataReader():
         if self.on:
             self.cpu_load = float(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + CPU_LOAD_COMMAND + "\"").read()) *CPU_LOAD_COEFFICIENT
             self.mem_total = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_TOTAL_COMMAND + "\"").read()) *MEM_TOTAL_COEFFICIENT
-            self.mem_free = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_FREE_COMMAND + "\"").read()) *MEM_FREE_COEFFICIENT
+            self.mem_avail = int(os.popen("ssh " + USERNAME + "@" + HOST + " \"" + MEM_AVAIL_COMMAND + "\"").read()) *MEM_FREE_COEFFICIENT
         else:
             self.cpu_load = 0.0
             self.mem_total = 0
-            self.mem_free = 0
+            self.mem_avail = 0
 
 class Home(ui.Scene):
     def __init__(self):
@@ -122,9 +122,9 @@ class Load(ui.Scene):
     def update_cpu(self, load):
         self.cpu_view.progress = load
 
-    def update_mem(self, free, total):
+    def update_mem(self, avail, total):
         if total != 0:
-            self.mem_view.progress = (total - free) / total
+            self.mem_view.progress = avail / total
         else:
             self.mem_view.progress = 0
 
