@@ -105,9 +105,9 @@ class Load(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
 
-        self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 280, 200), 'Back')
-        self.ba1_button.on_clicked.connect(self.button_handler)
-        self.add_child(self.ba1_button)
+        #self.ba1_button = ui.Button(ui.Rect(MARGIN, MARGIN, 280, 200), 'Back')
+        #self.ba1_button.on_clicked.connect(self.button_handler)
+        #self.add_child(self.ba1_button)
 
         self.cpu_view = ui.ProgressView(ui.Rect(MARGIN, 200, 280, 40))
         self.add_child(self.cpu_view)
