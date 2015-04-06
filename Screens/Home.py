@@ -47,6 +47,6 @@ class Home(ui.Scene):
         elif btn.text == ba2:
             # ui.scene.push(Storage.Storage())
             alert = ui.alert.AlertView('Test', 'This is an alert')
-            alert.show_alert('Hi')
+            # alert.show_alert('Hi')
         elif btn.text == ba3:
             ui.scene.push(Action.Action())
