@@ -30,18 +30,24 @@ class DataReader():
         self.on = bool(int(os.popen(Globals.ON_COMMAND).read()))
         Globals.LOGGER.info("Server on: " + str(self.on))
         if self.on:
-            self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
-            Globals.LOGGER.info(self.cpu_load)
-            self.cpu_load = float(self.cpu_load) * Globals.CPU_LOAD_COEFFICIENT
-            self.mem_total = int(os.popen(
-                "ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_TOTAL_COMMAND).read()) * Globals.MEM_TOTAL_COEFFICIENT
-            self.mem_free = int(
-                os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_FREE_COMMAND).read())
-            self.mem_free += int(
-                os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_BUFFERS_COMMAND).read())
-            self.mem_free += int(
-                os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_CACHED_COMMAND).read())
-            self.mem_free *= Globals.MEM_FREE_COEFFICIENT
+            self.result = os.popen(Globals.GET_ALL_COMMAND)
+            self.results = self.result.split()
+            self.cpu_load = float(self.results[0])
+            self.mem_total = int(self.results[1])
+            self.mem_free = int(self.results[2]) + int(self.results[3]) + int(self.results[4])
+
+            # self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
+            #Globals.LOGGER.info(self.cpu_load)
+            #self.cpu_load = float(self.cpu_load) * Globals.CPU_LOAD_COEFFICIENT
+            #self.mem_total = int(os.popen(
+            #    "ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_TOTAL_COMMAND).read()) * Globals.MEM_TOTAL_COEFFICIENT
+            #self.mem_free = int(
+            #    os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_FREE_COMMAND).read())
+            #self.mem_free += int(
+            #    os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_BUFFERS_COMMAND).read())
+            #self.mem_free += int(
+            #    os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_CACHED_COMMAND).read())
+            #self.mem_free *= Globals.MEM_FREE_COEFFICIENT
 
             Globals.LOGGER.info(
                 'CPU load: ' + str(self.cpu_load * 100) + ' MEM load: ' + str(

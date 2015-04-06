@@ -20,6 +20,8 @@ MEM_BUFFERS_COMMAND = " \"grep Buffers /proc/meminfo\" | awk '{print $2}'"
 MEM_CACHED_COMMAND = " \"grep Cached /proc/meminfo\" | awk '{print $2}' | head -1"
 MEM_FREE_COEFFICIENT = 1.0
 
+GET_ALL_COMMAND = "ssh mawood@192.168.1.176 \"./run.sh\" | xargs"
+
 LOGGER = ""
 
 TERMINATING = False
