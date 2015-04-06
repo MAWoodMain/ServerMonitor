@@ -59,10 +59,12 @@ class DataReader():
             #self.mem_free += int(
             #    os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_CACHED_COMMAND).read())
             #self.mem_free *= Globals.MEM_FREE_COEFFICIENT
-
-            Globals.LOGGER.info(
-                'CPU load: ' + str(self.cpu_load * 100) + ' MEM load: ' + str(
-                    (1 - (float(self.mem_free) / float(self.mem_total))) * 100))
+            output = 'CPU load %3.2f MEM load %3.2f' % (
+            self.cpu_load * 100, 100 * (1 - (self.mem_free / self.mem_total)))
+            Globals.LOGGER.info(output)
+            # Globals.LOGGER.info(
+            #    'CPU load: ' + str(self.cpu_load * 100) + ' MEM load: ' + str(
+            #        (1 - (float(self.mem_free) / float(self.mem_total))) * 100))
         else:
             self.cpu_load = 0.0
             self.mem_total = 0
