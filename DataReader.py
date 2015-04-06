@@ -30,7 +30,7 @@ class DataReader():
         self.on = bool(int(os.popen(Globals.ON_COMMAND).read()))
         Globals.LOGGER.info("Server on: " + str(self.on))
         if self.on:
-            self.result = os.popen(Globals.GET_ALL_COMMAND)
+            self.result = str(os.popen(Globals.GET_ALL_COMMAND))
             self.results = self.result.split()
             self.cpu_load = float(self.results[0])
             self.mem_total = int(self.results[1])
