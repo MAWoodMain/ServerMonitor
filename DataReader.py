@@ -29,8 +29,9 @@ class DataReader():
     def update_info(self):
         self.on = bool(os.popen(Globals.ON_COMMAND).read())
         if self.on:
-            self.cpu_load = float(os.popen(
-                "ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()) * Globals.CPU_LOAD_COEFFICIENT
+            self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
+            Globals.LOGGER.info(self.cpu_load)
+            self.cpu_load = float(self.cpu_load) * Globals.CPU_LOAD_COEFFICIENT
             self.mem_total = int(os.popen(
                 "ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.MEM_TOTAL_COMMAND).read()) * Globals.MEM_TOTAL_COEFFICIENT
             self.mem_free = int(
