@@ -43,7 +43,7 @@ class Home(ui.Scene):
         if btn.text == ba1:
             load = Load.Load()
             datareader = DataReader.DataReader(load)
-            threading.Thread(target=datareader).stop()
+            datareader.terminate()
             threading.Thread(target=datareader).start()
             ui.scene.push(load)
         elif btn.text == ba2:
