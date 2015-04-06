@@ -24,6 +24,9 @@ class DataReader():
             self.update_info()
             self.scene.update_cpu(self.cpu_load)
             self.scene.update_mem(self.mem_free, self.mem_total)
+            Globals.LOGGER.info(
+                'CPU load: ' + str(self.cpu_load * 100) + ' MEM load: ' + str(
+                    (1 - (self.mem_free / self.mem_total)) * 100))
             time.sleep(Globals.UPDATE_DELAY)
 
     def update_info(self):
