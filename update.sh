@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd ~/ServerMoniter
+cd ~/ServerMonitor
 git pull
 sudo python ServerMonitor.py
