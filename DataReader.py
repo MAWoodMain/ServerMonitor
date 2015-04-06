@@ -41,6 +41,7 @@ class DataReader():
             Globals.LOGGER.info(self.mem_free)
             self.mem_free += int(self.results[4])
             Globals.LOGGER.info(self.mem_free)
+            Globals.LOGGER.info(self.mem_free / self.mem_total)
 
             # self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
             #Globals.LOGGER.info(self.cpu_load)
