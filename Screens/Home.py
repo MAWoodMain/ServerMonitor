@@ -5,7 +5,6 @@ import os
 import pygameui as ui
 import Screens.Load as Load
 import DataReader
-import Screens.Storage as Storage
 import Screens.Action as Action
 import Globals
 
@@ -46,6 +45,8 @@ class Home(ui.Scene):
             threading.Thread(target=datareader).start()
             ui.scene.push(load)
         elif btn.text == ba2:
-            ui.scene.push(Storage.Storage())
+            # ui.scene.push(Storage.Storage())
+            alert = ui.alert('Test', 'This is an alert')
+            alert.show_alert('Hi')
         elif btn.text == ba3:
             ui.scene.push(Action.Action())
