@@ -3,7 +3,7 @@ __author__ = 'MAWood'
 import pygameui as ui
 import Globals
 
-
+b1 = "Go back"
 class Load(ui.Scene):
     def __init__(self):
         ui.Scene.__init__(self)
@@ -18,6 +18,10 @@ class Load(ui.Scene):
 
         self.mem_view = ui.ProgressView(ui.Rect(Globals.MARGIN, 200, 280, 40))
         self.add_child(self.mem_view)
+
+        self.b1_button = ui.Button(ui.Rect(0, 0, 40, 100), b1)
+        self.b1_button.on_clicked.connect(self.button_handler)
+        self.add_child(self.b1_button)
 
     def update_cpu(self, load):
         self.cpu_view.progress = load
