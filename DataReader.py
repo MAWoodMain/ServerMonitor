@@ -27,7 +27,7 @@ class DataReader():
             time.sleep(Globals.UPDATE_DELAY)
 
     def update_info(self):
-        self.on = bool(os.popen(Globals.ON_COMMAND).read())
+        self.on = bool(int(os.popen(Globals.ON_COMMAND).read()))
         Globals.LOGGER.info("Server on: " + str(self.on))
         if self.on:
             self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
