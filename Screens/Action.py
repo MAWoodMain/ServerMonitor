@@ -30,11 +30,11 @@ class Action(ui.Scene):
         self.add_child(self.b4_button)
 
     def button_handler(self, btn, mbtn):
-        if btn.txt == b1:
+        if btn.text == b1:
             os.popen('sudo pm-suspend')
-        elif btn.txt == b2:
+        elif btn.text == b2:
             os.popen('')
-        elif btn.txt == b3:
+        elif btn.text == b3:
             os.popen('sudo reboot')
-        elif btn.txt == b4:
+        elif btn.text == b4:
             os.popen('')
