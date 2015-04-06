@@ -45,6 +45,8 @@ class DataReader():
             #Globals.LOGGER.info(self.mem_free)
             Globals.LOGGER.info(float(self.mem_free) / float(self.mem_total))
 
+            # TODO stop data reader when load closes.
+
             # self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()
             #Globals.LOGGER.info(self.cpu_load)
             #self.cpu_load = float(self.cpu_load) * Globals.CPU_LOAD_COEFFICIENT
