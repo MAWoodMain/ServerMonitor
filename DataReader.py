@@ -40,6 +40,8 @@ class DataReader():
             self.mem_free += int(self.results[3])
             Globals.LOGGER.info(self.mem_free)
             self.mem_free += int(self.results[4])
+            self.mem_free = float(self.mem_free)
+            self.mem_total = float(self.mem_total)
             Globals.LOGGER.info(self.mem_free)
             Globals.LOGGER.info(float(self.mem_free) / float(self.mem_total))
 
