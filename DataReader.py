@@ -32,17 +32,17 @@ class DataReader():
         if self.on:
             self.result = str(os.popen(Globals.GET_ALL_COMMAND).read())
             self.results = self.result.split()
-            Globals.LOGGER.info(self.results)
+            # Globals.LOGGER.info(self.results)
             self.cpu_load = float(self.results[0]) * Globals.CPU_LOAD_COEFFICIENT
             self.mem_total = int(self.results[1])
             self.mem_free = int(self.results[2])
-            Globals.LOGGER.info(self.mem_free)
+            #Globals.LOGGER.info(self.mem_free)
             self.mem_free += int(self.results[3])
-            Globals.LOGGER.info(self.mem_free)
+            #Globals.LOGGER.info(self.mem_free)
             self.mem_free += int(self.results[4])
             self.mem_free = float(self.mem_free)
             self.mem_total = float(self.mem_total)
-            Globals.LOGGER.info(self.mem_free)
+            #Globals.LOGGER.info(self.mem_free)
             Globals.LOGGER.info(float(self.mem_free) / float(self.mem_total))
 
             # self.cpu_load = os.popen("ssh " + Globals.USERNAME + "@" + Globals.HOST + Globals.CPU_LOAD_COMMAND).read()

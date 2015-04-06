@@ -5,7 +5,7 @@ MARGIN = 20
 HOST = "192.168.1.176"
 USERNAME = "mawood"
 
-UPDATE_DELAY = 1
+UPDATE_DELAY = 3
 
 ON_COMMAND = "ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24"
 
