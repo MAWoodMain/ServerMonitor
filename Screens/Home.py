@@ -1,6 +1,5 @@
 __author__ = 'MAWood'
 import threading
-import os
 
 import pygameui as ui
 import Screens.Load as Load
@@ -22,7 +21,7 @@ class Home(ui.Scene):
 
         # proc = subprocess.Popen('ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24', stdout=subprocess.PIPE)
         # tmp = proc.stdout.read()
-        tmp = int(os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read())
+        # tmp = int(os.popen("ping -c 1 192.168.1.176 | grep 'packets transmitted' |  cut -c 24").read())
         self.ba1_button = ui.Button(ui.Rect(Globals.MARGIN, Globals.MARGIN, 130, 90), ba1)
         self.ba1_button.on_clicked.connect(self.button_handler)
         self.add_child(self.ba1_button)
